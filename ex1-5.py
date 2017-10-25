@@ -11,7 +11,9 @@ count = 50
 search_results = twitter_api.search.tweets(q=q, count=count)
 statuses = search_results['statuses']
 
-print(json.dumps(statuses, indent=1))
+file = open('test.json', 'w')
+file.write(json.dumps(search_results))
+file.close()
 
 for _ in range(5):
     print("Length: ", len(statuses))
@@ -22,8 +24,10 @@ for _ in range(5):
 
     kwargs = dict([kv.split('=') for kv in next_results[1:].split("&")])
 
+    print(kwargs)
+
     search_results = twitter_api.search.tweets(**kwargs)
 
     statuses += search_results['statuses']
 
-print(json.dumps(statuses[0], indent=1))
+# print(json.dumps(statuses[0], indent=1))
